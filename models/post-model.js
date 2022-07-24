@@ -12,11 +12,11 @@ const postSchema = new mongoose.Schema({
 
 exports.PostModel = mongoose.model('posts', postSchema);
 
-exports.validPost = (content) => {
+exports.validPost = (formdata) => {
     let joiSchema = Joi.object({
         postName: Joi.string().min(2).max(120).required(),
         postText: Joi.string().min(2).max(65536).required(),
     })
 
-    return joiSchema.validate(content);
+    return joiSchema.validate(formdata);
 }

@@ -2,14 +2,15 @@ var express = require('express');
 var bcrypt = require('bcrypt');
 var router = express.Router();
 
-const { validUser, UserModel } = require('../models/user-model');
+const { userValidation, UserModel } = require('../models/user-model');
 
 router.get('/', async(req, res) => {
-    res.json({ msg:'Users work!' });
+    res.json({ msg: 'Users work!' });
 });
 
+// Create a new user
 router.post('/', async(req, res) => {
-    let validBody = validUser(req.body);
+    let validBody = userValidation(req.body);
     if (validBody.error) {
         return res.status(400).json(validBody.error.details);
     }
@@ -22,6 +23,6 @@ router.post('/', async(req, res) => {
     } catch (error) {
         console.log(error);
     }
-})
+});
 
 module.exports = router;
